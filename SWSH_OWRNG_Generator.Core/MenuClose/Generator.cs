@@ -10,12 +10,14 @@ namespace SWSH_OWRNG_Generator.Core.MenuClose
             {
                 rng.NextInt(91);
             }
+            /*
             if (Mode != (byte)MenuCloseType.HoldingDirection)
             {
                 // These rng calls are not correct in all weathers as player fidget logic can change based on weather
                 rng.Next();
                 rng.NextInt(60);
             }
+            */
             return ref rng;
         }
         public static uint GetAdvances(Xoroshiro128Plus rng, uint NPCs, byte Mode = (byte)MenuCloseType.Regular)

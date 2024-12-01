@@ -2,7 +2,7 @@
 
 namespace SWSH_OWRNG_Generator.Core.Util
 {
-    public class Common
+    public static class Common
     {
         private static readonly string[] PersonalityMarks = { "Rowdy", "AbsentMinded", "Jittery", "Excited", "Charismatic", "Calmness", "Intense", "ZonedOut", "Joyful", "Angry", "Smiley", "Teary", "Upbeat", "Peeved", "Intellectual", "Ferocious", "Crafty", "Scowling", "Kindly", "Flustered", "PumpedUp", "ZeroEnergy", "Prideful", "Unsure", "Humble", "Thorny", "Vigor", "Slump" };
         public static readonly IReadOnlyList<string> Natures = GameInfo.GetStrings(1).Natures;
@@ -14,7 +14,17 @@ namespace SWSH_OWRNG_Generator.Core.Util
 
         public static bool PassesMarkFilter(string Mark, string DesiredMark)
         {
-            return !(DesiredMark == "Any Mark" && Mark == "None" || DesiredMark == "Any Personality" && (Mark == "None" || Mark == "Uncommon" || Mark == "Time" || Mark == "Weather" || Mark == "Fishing" || Mark == "Rare") || DesiredMark != "Ignore" && DesiredMark != "Any Mark" && DesiredMark != "Any Personality" && Mark != DesiredMark);
+            if (Mark == DesiredMark)
+                return true;
+
+            return DesiredMark switch
+            {
+                "Ignore" => true,
+                "Any Mark" => Mark != "None",
+                "Any Personality" => Mark is not ("None" or "Uncommon" or "Time" or "Weather" or "Fishing" or "Rare"),
+                "Personality/Rare" => Mark is not ("None" or "Uncommon" or "Time" or "Weather" or "Fishing"),
+                _ => false,
+            };
         }
 
         public static bool PassesHeightFilter(int Scale, string DesiredHeight)
