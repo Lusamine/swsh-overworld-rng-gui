@@ -80,12 +80,13 @@ namespace SWSH_OWRNG_Generator.WinForms
             Animation = new DataGridViewTextBoxColumn();
             Jump = new DataGridViewTextBoxColumn();
             Steps = new DataGridViewTextBoxColumn();
+            Shiny = new DataGridViewTextBoxColumn();
+            Mark = new DataGridViewTextBoxColumn();
             Brilliant = new DataGridViewTextBoxColumn();
             Level = new DataGridViewTextBoxColumn();
             Slot = new DataGridViewTextBoxColumn();
             PID = new DataGridViewTextBoxColumn();
             EC = new DataGridViewTextBoxColumn();
-            Shiny = new DataGridViewTextBoxColumn();
             Ability = new DataGridViewTextBoxColumn();
             Nature = new DataGridViewTextBoxColumn();
             Gender = new DataGridViewTextBoxColumn();
@@ -96,7 +97,6 @@ namespace SWSH_OWRNG_Generator.WinForms
             SpD = new DataGridViewTextBoxColumn();
             Spe = new DataGridViewTextBoxColumn();
             Height = new DataGridViewTextBoxColumn();
-            Mark = new DataGridViewTextBoxColumn();
             State0 = new DataGridViewTextBoxColumn();
             State1 = new DataGridViewTextBoxColumn();
             generatorBindingSource = new BindingSource(components);
@@ -158,6 +158,9 @@ namespace SWSH_OWRNG_Generator.WinForms
             InputFlawlessIVs = new TextBox();
             sensBox = new CheckBox();
             CheckCuteCharm = new CheckBox();
+            CheckWeatherFidget = new CheckBox();
+            CheckHoldingDirection = new CheckBox();
+            TypePullSlotsInput = new TextBox();
             hpJudgeFilter = new ComboBox();
             atkJudgeFilter = new ComboBox();
             defJudgeFilter = new ComboBox();
@@ -444,7 +447,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             // 
             SelectedMark.DropDownStyle = ComboBoxStyle.DropDownList;
             SelectedMark.FormattingEnabled = true;
-            SelectedMark.Items.AddRange(new object[] { "Ignore", "None", "Any Mark", "Any Personality", "Uncommon", "Time", "Weather", "Fishing", "Rare", "Rowdy", "AbsentMinded", "Jittery", "Excited", "Charismatic", "Calmness", "Intense", "ZonedOut", "Joyful", "Angry", "Smiley", "Teary", "Upbeat", "Peeved", "Intellectual", "Ferocious", "Crafty", "Scowling", "Kindly", "Flustered", "PumpedUp", "ZeroEnergy", "Prideful", "Unsure", "Humble", "Thorny", "Vigor", "Slump" });
+            SelectedMark.Items.AddRange(new object[] { "Ignore", "None", "Any Mark", "Any Personality", "Personality/Rare", "Uncommon", "Time", "Weather", "Fishing", "Rare", "Rowdy", "AbsentMinded", "Jittery", "Excited", "Charismatic", "Calmness", "Intense", "ZonedOut", "Joyful", "Angry", "Smiley", "Teary", "Upbeat", "Peeved", "Intellectual", "Ferocious", "Crafty", "Scowling", "Kindly", "Flustered", "PumpedUp", "ZeroEnergy", "Prideful", "Unsure", "Humble", "Thorny", "Vigor", "Slump" });
             SelectedMark.Location = new System.Drawing.Point(475, 258);
             SelectedMark.Name = "SelectedMark";
             SelectedMark.Size = new System.Drawing.Size(103, 23);
@@ -638,7 +641,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             Results.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             Results.AutoGenerateColumns = false;
             Results.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            Results.Columns.AddRange(new DataGridViewColumn[] { Frame, TID, SID, Animation, Jump, Steps, Brilliant, Level, Slot, PID, EC, Shiny, Ability, Nature, Gender, HP, Atk, Def, SpA, SpD, Spe, Height, Mark, State0, State1 });
+            Results.Columns.AddRange(new DataGridViewColumn[] { Frame, TID, SID, Animation, Jump, Steps, Shiny, Mark, Brilliant, Level, Ability, Nature, Gender, HP, Atk, Def, SpA, SpD, Spe, Height, Slot, PID, EC, State0, State1 });
             Results.DataSource = generatorBindingSource;
             Results.Location = new System.Drawing.Point(12, 463);
             Results.MultiSelect = false;
@@ -744,14 +747,13 @@ namespace SWSH_OWRNG_Generator.WinForms
             PID.Width = 50;
             // 
             // EC
-            // 
+            //
             EC.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             EC.DataPropertyName = "EC";
             EC.HeaderText = "EC";
             EC.MinimumWidth = 8;
             EC.Name = "EC";
             EC.ReadOnly = true;
-            EC.Width = 46;
             // 
             // Shiny
             // 
@@ -783,6 +785,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             // 
             // Gender
             // 
+            Gender.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
             Gender.DataPropertyName = "Gender";
             Gender.HeaderText = "Gender";
             Gender.MinimumWidth = 6;
@@ -880,7 +883,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             State0.Width = 150;
             // 
             // State1
-            // 
+            //
             State1.DataPropertyName = "State1";
             State1.HeaderText = "State1";
             State1.MinimumWidth = 8;
@@ -1460,8 +1463,38 @@ namespace SWSH_OWRNG_Generator.WinForms
             CheckCuteCharm.Name = "CheckCuteCharm";
             CheckCuteCharm.Size = new System.Drawing.Size(118, 19);
             CheckCuteCharm.TabIndex = 97;
-            CheckCuteCharm.Text = "Cute Charm Lead";
+            CheckCuteCharm.Text = "Type Pull Lead";
             CheckCuteCharm.UseVisualStyleBackColor = true;
+            // 
+            // CheckWeatherFidget
+            // 
+            CheckWeatherFidget.AutoSize = true;
+            CheckWeatherFidget.Location = new System.Drawing.Point(281, 300);
+            CheckWeatherFidget.Name = "CheckWeatherFidget";
+            CheckWeatherFidget.Size = new System.Drawing.Size(118, 19);
+            CheckWeatherFidget.TabIndex = 97;
+            CheckWeatherFidget.Text = "Clear/Cloudy/Fog";
+            CheckWeatherFidget.UseVisualStyleBackColor = true;
+            // 
+            // CheckHoldingDirection
+            // 
+            CheckHoldingDirection.AutoSize = true;
+            CheckHoldingDirection.Location = new System.Drawing.Point(281, 325);
+            CheckHoldingDirection.Name = "CheckHoldingDirection";
+            CheckHoldingDirection.Size = new System.Drawing.Size(118, 19);
+            CheckHoldingDirection.TabIndex = 97;
+            CheckHoldingDirection.Text = "Holding Direction";
+            CheckHoldingDirection.UseVisualStyleBackColor = true;
+            // 
+            // TypePullSlotsInput
+            // 
+            TypePullSlotsInput.Location = new System.Drawing.Point(12, 340);
+            TypePullSlotsInput.Name = "TypePullSlotsInput";
+            TypePullSlotsInput.Size = new System.Drawing.Size(30, 23);
+            TypePullSlotsInput.TabIndex = 131;
+            TypePullSlotsInput.Text = "1";
+            TypePullSlotsInput.TextAlign = HorizontalAlignment.Right;
+            TypePullSlotsInput.KeyPress += DecInput_KeyPress;
             // 
             // hpJudgeFilter
             // 
@@ -1686,7 +1719,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             // 
             // SkipAmountInput
             // 
-            SkipAmountInput.Enabled = false;
+            SkipAmountInput.Enabled = true;
             SkipAmountInput.Location = new System.Drawing.Point(424, 350);
             SkipAmountInput.Name = "SkipAmountInput";
             SkipAmountInput.Size = new System.Drawing.Size(40, 23);
@@ -1933,6 +1966,9 @@ namespace SWSH_OWRNG_Generator.WinForms
             Controls.Add(atkJudgeFilter);
             Controls.Add(hpJudgeFilter);
             Controls.Add(CheckCuteCharm);
+            Controls.Add(CheckWeatherFidget);
+            Controls.Add(CheckHoldingDirection);
+            Controls.Add(TypePullSlotsInput);
             Controls.Add(sensBox);
             Controls.Add(CheckTIDSIDFinder);
             Controls.Add(LabelFlawlessIVs);
@@ -2126,6 +2162,9 @@ namespace SWSH_OWRNG_Generator.WinForms
         private Label LabelFlawlessIVs;
         private CheckBox sensBox;
         private CheckBox CheckCuteCharm;
+        private CheckBox CheckWeatherFidget;
+        private CheckBox CheckHoldingDirection;
+        private TextBox TypePullSlotsInput;
         private ComboBox hpJudgeFilter;
         private ComboBox atkJudgeFilter;
         private ComboBox defJudgeFilter;

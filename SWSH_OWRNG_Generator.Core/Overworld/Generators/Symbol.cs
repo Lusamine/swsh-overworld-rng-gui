@@ -4,7 +4,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 {
     public static class Symbol
     {
-        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs)
+        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs, uint type_pull_slots = 1)
         {
             List<Frame> Results = new();
 
@@ -13,7 +13,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
             uint LevelDelta = Filters.LevelMax - Filters.LevelMin + 1;
             uint EC;
             uint PID;
-            uint SlotRand;
+            string SlotRand;
             uint Level;
             uint BrilliantRand;
             uint Nature;
@@ -53,25 +53,33 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 Xoroshiro128Plus rng = new(s0, s1);
                 if (Filters.MenuClose)
                 {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCs);
+                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters)}";
+                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
                 }
                 Brilliant = false;
-                Gender = "";
-
-                rng.NextInt();
-                rng.NextInt(100);
 
                 uint LeadRand = (uint)rng.NextInt(100);
-                if (Filters.CuteCharm && LeadRand < 66)
-                    Gender = "CC";
-
-                SlotRand = (uint)rng.NextInt(100);
-                if (Filters.SlotMin > SlotRand || Filters.SlotMax < SlotRand)
+                SlotRand = "";
+                if (Filters.CuteCharm && LeadRand >= 49)
                 {
-                    go.Next();
-                    advance++;
-                    continue;
+                    SlotRand = "T";
+                    if (type_pull_slots > 1)
+                    {
+                        var type_slot = (int)rng.NextInt(type_pull_slots) + 1;
+                        SlotRand += type_slot;
+                    }
+                }
+
+                if (SlotRand.Length == 0)
+                {
+                    var slotrandval = (uint)rng.NextInt(100);
+                    SlotRand = slotrandval.ToString();
+                    if (Filters.SlotMin > slotrandval || Filters.SlotMax < slotrandval)
+                    {
+                        go.Next();
+                        advance++;
+                        continue;
+                    }
                 }
 
                 if (GenerateLevel)
@@ -111,8 +119,9 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 }
 
                 // Gender
+                Gender = "";
                 if (Gender != "CC")
-                    Gender = rng.NextInt(2) == 0 ? "F" : "M";
+                    Gender += rng.NextInt(2) == 0 ? "F" : "M";
                 // Nature
                 Nature = (uint)rng.NextInt(25);
                 if (!Util.Common.PassesNatureFilter((int)Nature, Filters.DesiredNature!))

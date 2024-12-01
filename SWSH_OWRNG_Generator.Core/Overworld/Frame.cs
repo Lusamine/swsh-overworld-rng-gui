@@ -9,7 +9,7 @@
         public string? Jump { get; set; }
         public string? Steps { get; set; }
         public uint Level { get; set; }
-        public uint Slot { get; set; }
+        public string Slot { get; set; } = "";
         public string? PID { get; set; }
         public string? EC { get; set; }
         public string? Shiny { get; set; }

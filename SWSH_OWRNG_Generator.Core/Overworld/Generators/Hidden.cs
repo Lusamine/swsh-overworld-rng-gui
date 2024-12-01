@@ -168,7 +168,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                         Jump = Jump,
                         Steps = (steps + 1).ToString(),
                         Level = Level,
-                        Slot = SlotRand,
+                        Slot = SlotRand.ToString(),
                         PID = PID.ToString("X8"),
                         EC = EC.ToString("X8"),
                         Shiny = ShinyXOR == 0 ? "Square" : ShinyXOR < 16 ? $"Star ({ShinyXOR})" : "No",

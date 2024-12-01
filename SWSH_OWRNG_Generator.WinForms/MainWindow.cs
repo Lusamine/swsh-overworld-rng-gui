@@ -8,6 +8,7 @@ using SysBot.Base;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -588,6 +589,8 @@ namespace SWSH_OWRNG_Generator.WinForms
                     AbilityLocked = CheckIsAbilityLocked.Checked,
                     TIDSIDSearch = CheckTIDSIDFinder.Checked,
                     CuteCharm = CheckCuteCharm.Checked,
+                    UseWeatherFidgets = CheckWeatherFidget.Checked,
+                    HoldingDirection = CheckHoldingDirection.Checked,
                     ShinyLocked = CheckShinyLocked.Checked,
                     Hidden = CheckHidden.Checked,
                     MenuClose = CheckMenuClose.Checked,
@@ -657,6 +660,8 @@ namespace SWSH_OWRNG_Generator.WinForms
                 var progress = new Progress<int>(_ => progressBar1.PerformStep());
 
                 List<Core.Overworld.Frame> Frames;
+                List<Core.Overworld.Frame> Frames2;
+
                 if (Filters.TIDSIDSearch)
                 {
                     Frames = await Task.Run(() => TIDSID.Generate(s0, s1, advances, InitialAdvances, progress, Filters), CancellationToken.None);
@@ -675,9 +680,14 @@ namespace SWSH_OWRNG_Generator.WinForms
                 }
                 else
                 {
-                    Frames = await Task.Run(() => Symbol.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs), CancellationToken.None);
+                    var type_pull_slots = uint.Parse(TypePullSlotsInput.Text);
+                    Frames = await Task.Run(() => Symbol.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs, type_pull_slots), CancellationToken.None);
                 }
-                ButtonSearch.Text = $"Preparing {Frames.Count:N0} results...";
+                if (Frames.Count > 2500)
+                    Frames2 = Frames.GetRange(0, 2500);
+                else
+                    Frames2 = Frames;
+                ButtonSearch.Text = $"Preparing {Frames2.Count:N0} results...";
                 ButtonSearch.Enabled = false;
                 BindingSource Source = new() { DataSource = Frames };
                 Results.DataSource = Source;
@@ -899,16 +909,23 @@ namespace SWSH_OWRNG_Generator.WinForms
             {
                 Program.Window.ConnectionStatusText.Text = "Connecting...";
                 SwitchConnection.Connect();
-                Program.Window.ConnectionStatusText.Text = "Connected!";
+                var sav = await GetFakeTrainerSAV(CancellationToken.None).ConfigureAwait(false);
+                await GetTIDSID(sav).ConfigureAwait(false);
+                //Program.Window.ConnectionStatusText.Text = "Connected!";
                 ChangeButtonState(Program.Window.ConnectButton, false);
                 ChangeButtonState(Program.Window.DisconnectButton, true);
                 ChangeButtonState(Program.Window.ReadEncounterButton, true);
                 ChangeButtonState(Program.Window.DaySkipButton, true);
                 ChangeButtonState(Program.Window.ShortSkipButton, true);
                 ChangeButtonState(Program.Window.NTPButton, true);
-                ChangeTextBoxState(Program.Window.SkipAmountInput, true);
-                var sav = await GetFakeTrainerSAV(CancellationToken.None).ConfigureAwait(false);
-                await GetTIDSID(sav).ConfigureAwait(false);
+
+                while (Program.Window.InputTID.Text == "0" && Program.Window.InputSID.Text == "0")
+                {
+                    Program.Window.ConnectionStatusText.Text = "Waiting on TID/SID...";
+                    sav = await GetFakeTrainerSAV(CancellationToken.None).ConfigureAwait(false);
+                    await GetTIDSID(sav).ConfigureAwait(false);
+                    await Task.Delay(0_500).ConfigureAwait(false);
+                }
                 await ReadRNGState(CancellationToken.None).ConfigureAwait(false);
             }
             catch (SocketException err)
@@ -917,12 +934,12 @@ namespace SWSH_OWRNG_Generator.WinForms
                 if (err.Message.Contains("failed to respond"))
                 {
                     LabelSetText(Program.Window.ConnectionStatusText, "Unable to connect.");
-                    MessageBox.Show(err.Message);
+                    //MessageBox.Show(err.Message);
                 }
                 else
                 {
                     LabelSetText(Program.Window.ConnectionStatusText, "Disconnected.");
-                    MessageBox.Show($"Disconnected from {Program.Window.SwitchIPInput.Text}!");
+                    //MessageBox.Show($"Disconnected from {Program.Window.SwitchIPInput.Text}!");
                 }
                 ChangeButtonState(Program.Window.ConnectButton, true);
                 ChangeButtonState(Program.Window.DisconnectButton, false);
@@ -930,7 +947,6 @@ namespace SWSH_OWRNG_Generator.WinForms
                 ChangeButtonState(Program.Window.DaySkipButton, false);
                 ChangeButtonState(Program.Window.ShortSkipButton, false);
                 ChangeButtonState(Program.Window.NTPButton, false);
-                ChangeTextBoxState(Program.Window.SkipAmountInput, false);
             }
         }
 
