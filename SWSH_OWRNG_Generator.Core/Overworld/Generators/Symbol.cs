@@ -53,17 +53,10 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 Xoroshiro128Plus rng = new(s0, s1);
                 if (Filters.MenuClose)
                 {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCs);
+                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters)}";
+                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
                 }
                 Brilliant = false;
-
-                if (!Filters.HoldingDirection)
-                {
-                    if (!Filters.IgnoreWeatherFidgets)
-                        rng.NextInt(); // rand 2 for weather
-                    rng.NextInt(61);
-                }
 
                 uint LeadRand = (uint)rng.NextInt(100);
                 SlotRand = "";

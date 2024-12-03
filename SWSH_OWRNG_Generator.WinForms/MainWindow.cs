@@ -589,7 +589,7 @@ namespace SWSH_OWRNG_Generator.WinForms
                     AbilityLocked = CheckIsAbilityLocked.Checked,
                     TIDSIDSearch = CheckTIDSIDFinder.Checked,
                     CuteCharm = CheckCuteCharm.Checked,
-                    IgnoreWeatherFidgets = CheckWeatherFidget.Checked,
+                    UseWeatherFidgets = CheckWeatherFidget.Checked,
                     HoldingDirection = CheckHoldingDirection.Checked,
                     ShinyLocked = CheckShinyLocked.Checked,
                     Hidden = CheckHidden.Checked,
@@ -911,7 +911,7 @@ namespace SWSH_OWRNG_Generator.WinForms
                 SwitchConnection.Connect();
                 var sav = await GetFakeTrainerSAV(CancellationToken.None).ConfigureAwait(false);
                 await GetTIDSID(sav).ConfigureAwait(false);
-                Program.Window.ConnectionStatusText.Text = "Connected!";
+                //Program.Window.ConnectionStatusText.Text = "Connected!";
                 ChangeButtonState(Program.Window.ConnectButton, false);
                 ChangeButtonState(Program.Window.DisconnectButton, true);
                 ChangeButtonState(Program.Window.ReadEncounterButton, true);

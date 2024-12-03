@@ -12,7 +12,7 @@
         public bool Hidden { get; set; }
         public bool HeldItem { get; set; }
         public bool CuteCharm { get; set; }
-        public bool IgnoreWeatherFidgets { get; set; }
+        public bool UseWeatherFidgets { get; set; }
         public bool HoldingDirection { get; set; }
         public bool AbilityLocked { get; set; }
         public bool ShinyLocked { get; set; }
