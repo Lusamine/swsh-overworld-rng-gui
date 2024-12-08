@@ -4,7 +4,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 {
     public static class Fishing
     {
-        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs)
+        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs, uint type_pull_slots = 1)
         {
             List<Frame> Results = new();
 
@@ -13,7 +13,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
             uint LevelDelta = Filters.LevelMax - Filters.LevelMin + 1;
             uint EC;
             uint PID;
-            uint SlotRand;
+            string SlotRand;
             uint Level;
             uint BrilliantRand;
             uint Nature;
@@ -57,19 +57,32 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 }
 
                 Brilliant = false;
-                Gender = "";
-                rng.NextInt(100);
+
+                rng.NextInt(361); // placement roll -- assuming it works on the first try.
+                rng.Next(); // actually a float but we don't care about the value.
 
                 uint LeadRand = (uint)rng.NextInt(100);
-                if (Filters.CuteCharm && LeadRand < 66)
-                    Gender = "CC";
-
-                SlotRand = (uint)rng.NextInt(100);
-                if (Filters.SlotMin > SlotRand || Filters.SlotMax < SlotRand)
+                SlotRand = "";
+                if (Filters.CuteCharm && LeadRand >= 49)
                 {
-                    go.Next();
-                    advance++;
-                    continue;
+                    SlotRand = "T";
+                    if (type_pull_slots > 1)
+                    {
+                        var type_slot = (int)rng.NextInt(type_pull_slots) + 1;
+                        SlotRand += type_slot;
+                    }
+                }
+
+                if (SlotRand.Length == 0)
+                {
+                    var slotrandval = (uint)rng.NextInt(100);
+                    SlotRand = slotrandval.ToString();
+                    if (Filters.SlotMin > slotrandval || Filters.SlotMax < slotrandval)
+                    {
+                        go.Next();
+                        advance++;
+                        continue;
+                    }
                 }
 
                 if (GenerateLevel)
@@ -110,6 +123,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 }
 
                 // Gender
+                Gender = "";
                 if (Gender != "CC")
                     Gender = rng.NextInt(2) == 0 ? "F" : "M";
                 // Nature

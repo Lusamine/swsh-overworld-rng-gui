@@ -676,7 +676,8 @@ namespace SWSH_OWRNG_Generator.WinForms
                 }
                 else if (Filters.Fishing)
                 {
-                    Frames = await Task.Run(() => Fishing.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs), CancellationToken.None);
+                    var type_pull_slots = uint.Parse(TypePullSlotsInput.Text);
+                    Frames = await Task.Run(() => Fishing.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs, type_pull_slots), CancellationToken.None);
                 }
                 else
                 {
