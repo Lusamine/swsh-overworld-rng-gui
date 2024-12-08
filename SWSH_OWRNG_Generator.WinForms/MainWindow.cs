@@ -912,7 +912,6 @@ namespace SWSH_OWRNG_Generator.WinForms
                 SwitchConnection.Connect();
                 var sav = await GetFakeTrainerSAV(CancellationToken.None).ConfigureAwait(false);
                 await GetTIDSID(sav).ConfigureAwait(false);
-                //Program.Window.ConnectionStatusText.Text = "Connected!";
                 ChangeButtonState(Program.Window.ConnectButton, false);
                 ChangeButtonState(Program.Window.DisconnectButton, true);
                 ChangeButtonState(Program.Window.ReadEncounterButton, true);
@@ -927,6 +926,7 @@ namespace SWSH_OWRNG_Generator.WinForms
                     await GetTIDSID(sav).ConfigureAwait(false);
                     await Task.Delay(0_500).ConfigureAwait(false);
                 }
+                Program.Window.ConnectionStatusText.Text = "Connected!";
                 await ReadRNGState(CancellationToken.None).ConfigureAwait(false);
             }
             catch (SocketException err)
