@@ -161,6 +161,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             CheckWeatherFidget = new CheckBox();
             CheckHoldingDirection = new CheckBox();
             TypePullSlotsInput = new TextBox();
+            BirdTicksInput = new TextBox();
             hpJudgeFilter = new ComboBox();
             atkJudgeFilter = new ComboBox();
             defJudgeFilter = new ComboBox();
@@ -1496,6 +1497,16 @@ namespace SWSH_OWRNG_Generator.WinForms
             TypePullSlotsInput.TextAlign = HorizontalAlignment.Right;
             TypePullSlotsInput.KeyPress += DecInput_KeyPress;
             // 
+            // BirdTicksInput
+            // 
+            BirdTicksInput.Location = new System.Drawing.Point(12, 364);
+            BirdTicksInput.Name = "BirdTicksInput";
+            BirdTicksInput.Size = new System.Drawing.Size(30, 23);
+            BirdTicksInput.TabIndex = 131;
+            BirdTicksInput.Text = "1";
+            BirdTicksInput.TextAlign = HorizontalAlignment.Right;
+            BirdTicksInput.KeyPress += DecInput_KeyPress;
+            // 
             // hpJudgeFilter
             // 
             hpJudgeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -1969,6 +1980,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             Controls.Add(CheckWeatherFidget);
             Controls.Add(CheckHoldingDirection);
             Controls.Add(TypePullSlotsInput);
+            Controls.Add(BirdTicksInput);
             Controls.Add(sensBox);
             Controls.Add(CheckTIDSIDFinder);
             Controls.Add(LabelFlawlessIVs);
@@ -2165,6 +2177,7 @@ namespace SWSH_OWRNG_Generator.WinForms
         private CheckBox CheckWeatherFidget;
         private CheckBox CheckHoldingDirection;
         private TextBox TypePullSlotsInput;
+        private TextBox BirdTicksInput;
         private ComboBox hpJudgeFilter;
         private ComboBox atkJudgeFilter;
         private ComboBox defJudgeFilter;
