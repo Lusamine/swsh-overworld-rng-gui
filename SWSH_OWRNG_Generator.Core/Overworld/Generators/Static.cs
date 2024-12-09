@@ -4,7 +4,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 {
     public static class Static
     {
-        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs)
+        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs, uint ticks)
         {
             List<Frame> Results = new();
 
@@ -41,16 +41,18 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 // Init new RNG
                 (ulong s0, ulong s1) = go.GetState();
                 Xoroshiro128Plus rng = new(s0, s1);
-                if (Filters.MenuClose)
-                {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
-                }
+
+                rng.NextInt(100); // map memory
+
+                for (var i = 0; i < 14; i++)
+                    rng.NextInt(100); // area load, may vary in the 14-16s upon repeated fly attempts.
+
+                rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
+
                 Gender = "";
                 uint LeadRand = (uint)rng.NextInt(100);
                 if (Filters.CuteCharm && LeadRand < 66)
                     Gender = "CC";
-
 
                 Shiny = false;
                 if (!Filters.ShinyLocked)
