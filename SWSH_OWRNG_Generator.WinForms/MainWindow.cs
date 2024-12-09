@@ -668,7 +668,8 @@ namespace SWSH_OWRNG_Generator.WinForms
                 }
                 else if (Filters.Static)
                 {
-                    Frames = await Task.Run(() => Static.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs), CancellationToken.None);
+                    var ticks = uint.Parse(BirdTicksInput.Text);
+                    Frames = await Task.Run(() => Static.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs, ticks), CancellationToken.None);
                 }
                 else if (Filters.Hidden)
                 {

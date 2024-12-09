@@ -4,7 +4,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 {
     public static class Static
     {
-        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs)
+        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs, uint ticks)
         {
             List<Frame> Results = new();
 
@@ -41,16 +41,40 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 // Init new RNG
                 (ulong s0, ulong s1) = go.GetState();
                 Xoroshiro128Plus rng = new(s0, s1);
-                if (Filters.MenuClose)
+
+                for (var i = 0; i < 12; i++)
                 {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
+                    rng.NextInt(20001); // close pokemon, open map
+                    rng.NextInt(20001);
                 }
+
+                rng.NextInt(100); // map memory
+
+                for (var i = 0; i < 6; i++)
+                {
+                    rng.NextInt(20001); // briefly returns to overworld before flying
+                    rng.NextInt(20001);
+                }
+
+                for (var i = 0; i < 13; i++)
+                    rng.NextInt(100); // area load
+
+                for (var i = 0; i < NPCs; i++)
+                    rng.NextInt(91);
+
+                //rng.NextInt(100); // rain memory if flying into rain
+
+                for (var i = 0; i < ticks; i++)
+                {
+                    rng.NextInt(20001); // rain loading
+                    rng.NextInt(20001);
+                }
+                rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
+
                 Gender = "";
                 uint LeadRand = (uint)rng.NextInt(100);
                 if (Filters.CuteCharm && LeadRand < 66)
                     Gender = "CC";
-
 
                 Shiny = false;
                 if (!Filters.ShinyLocked)
