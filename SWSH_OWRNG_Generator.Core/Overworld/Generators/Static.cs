@@ -56,7 +56,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                     rng.NextInt(20001);
                 }
 
-                for (var i = 0; i < 13; i++)
+                for (var i = 0; i < 14; i++)
                     rng.NextInt(100); // area load
 
                 for (var i = 0; i < NPCs; i++)
