@@ -151,6 +151,8 @@ namespace SWSH_OWRNG_Generator.WinForms
             ButtonUpdateStates = new Button();
             CheckTIDSIDFinder = new CheckBox();
             LabelKOCount = new Label();
+            LabelRainTicks = new Label();
+            LabelAreaLoad = new Label();
             InputKOCount = new TextBox();
             LabelEMs = new Label();
             InputEMs = new TextBox();
@@ -161,6 +163,8 @@ namespace SWSH_OWRNG_Generator.WinForms
             CheckWeatherFidget = new CheckBox();
             CheckHoldingDirection = new CheckBox();
             TypePullSlotsInput = new TextBox();
+            RainTicksInput = new TextBox();
+            AreaLoadInput = new TextBox();
             hpJudgeFilter = new ComboBox();
             atkJudgeFilter = new ComboBox();
             defJudgeFilter = new ComboBox();
@@ -1496,6 +1500,44 @@ namespace SWSH_OWRNG_Generator.WinForms
             TypePullSlotsInput.TextAlign = HorizontalAlignment.Right;
             TypePullSlotsInput.KeyPress += DecInput_KeyPress;
             // 
+            // RainTicksInput
+            // 
+            RainTicksInput.Location = new System.Drawing.Point(930, 29);
+            RainTicksInput.Name = "RainTicksInput";
+            RainTicksInput.Size = new System.Drawing.Size(30, 23);
+            RainTicksInput.TabIndex = 131;
+            RainTicksInput.Text = "1";
+            RainTicksInput.TextAlign = HorizontalAlignment.Right;
+            RainTicksInput.KeyPress += DecInput_KeyPress;
+            // 
+            // LabelRainTicks
+            // 
+            LabelRainTicks.AutoSize = true;
+            LabelRainTicks.Location = new System.Drawing.Point(827, 33);
+            LabelRainTicks.Name = "LabelRainTicks";
+            LabelRainTicks.Size = new System.Drawing.Size(61, 15);
+            LabelRainTicks.TabIndex = 91;
+            LabelRainTicks.Text = "Rain Ticks:";
+            // 
+            // AreaLoadInput
+            // 
+            AreaLoadInput.Location = new System.Drawing.Point(930, 57);
+            AreaLoadInput.Name = "AreaLoadInput";
+            AreaLoadInput.Size = new System.Drawing.Size(30, 23);
+            AreaLoadInput.TabIndex = 131;
+            AreaLoadInput.Text = "8";
+            AreaLoadInput.TextAlign = HorizontalAlignment.Right;
+            AreaLoadInput.KeyPress += DecInput_KeyPress;
+            // 
+            // LabelAreaLoad
+            // 
+            LabelAreaLoad.AutoSize = true;
+            LabelAreaLoad.Location = new System.Drawing.Point(827, 60);
+            LabelAreaLoad.Name = "AreaLoadLabel";
+            LabelAreaLoad.Size = new System.Drawing.Size(61, 15);
+            LabelAreaLoad.TabIndex = 91;
+            LabelAreaLoad.Text = "Area Load Rands:";
+            // 
             // hpJudgeFilter
             // 
             hpJudgeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -1969,6 +2011,8 @@ namespace SWSH_OWRNG_Generator.WinForms
             Controls.Add(CheckWeatherFidget);
             Controls.Add(CheckHoldingDirection);
             Controls.Add(TypePullSlotsInput);
+            Controls.Add(RainTicksInput);
+            Controls.Add(AreaLoadInput);
             Controls.Add(sensBox);
             Controls.Add(CheckTIDSIDFinder);
             Controls.Add(LabelFlawlessIVs);
@@ -1976,6 +2020,8 @@ namespace SWSH_OWRNG_Generator.WinForms
             Controls.Add(LabelEMs);
             Controls.Add(InputEMs);
             Controls.Add(LabelKOCount);
+            Controls.Add(LabelRainTicks);
+            Controls.Add(LabelAreaLoad);
             Controls.Add(InputKOCount);
             Controls.Add(ButtonUpdateStates);
             Controls.Add(CheckIsAbilityLocked);
@@ -2156,6 +2202,8 @@ namespace SWSH_OWRNG_Generator.WinForms
         private ToolStripMenuItem SeedFinderMenu;
         private Button ButtonUpdateStates;
         private Label LabelKOCount;
+        private Label LabelRainTicks;
+        private Label LabelAreaLoad;
         private TextBox InputKOCount;
         private CheckBox CheckTIDSIDFinder;
         private Label LabelEMs;
@@ -2165,6 +2213,8 @@ namespace SWSH_OWRNG_Generator.WinForms
         private CheckBox CheckWeatherFidget;
         private CheckBox CheckHoldingDirection;
         private TextBox TypePullSlotsInput;
+        private TextBox RainTicksInput;
+        private TextBox AreaLoadInput;
         private ComboBox hpJudgeFilter;
         private ComboBox atkJudgeFilter;
         private ComboBox defJudgeFilter;
