@@ -667,7 +667,11 @@ namespace SWSH_OWRNG_Generator.WinForms
                 }
                 else if (Filters.Static)
                 {
-                    Frames = await Task.Run(() => Static.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs), CancellationToken.None);
+                    var loading_rands = uint.Parse(AreaLoadInput.Text);
+                    var npc0 = uint.Parse(NPC0Input.Text);
+                    var rain_ticks = uint.Parse(RainTicksInput.Text);
+                    var rain_type = (Static.RainType)SelectedRain.SelectedIndex;
+                    Frames = await Task.Run(() => Static.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs, loading_rands, npc0, rain_ticks, rain_type), CancellationToken.None);
                 }
                 else if (Filters.Hidden)
                 {
