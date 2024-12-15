@@ -41,16 +41,18 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 // Init new RNG
                 (ulong s0, ulong s1) = go.GetState();
                 Xoroshiro128Plus rng = new(s0, s1);
-                if (Filters.MenuClose)
-                {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
-                }
+
+                rng.NextInt(100); // map memory
+
+                for (var i = 0; i < 8; i++)
+                    rng.NextInt(100); // area load when flying to dojo, wailord despawned
+
+                rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
+
                 Gender = "";
                 uint LeadRand = (uint)rng.NextInt(100);
                 if (Filters.CuteCharm && LeadRand < 66)
                     Gender = "CC";
-
 
                 Shiny = false;
                 if (!Filters.ShinyLocked)
