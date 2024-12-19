@@ -4,7 +4,7 @@ namespace SWSH_OWRNG_Generator.Core.MenuCloseTimeline
 {
     public class Generator
     {
-        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, uint NPCCount, IProgress<int> progress)
+        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, uint NPCCount, bool use_weather_fidgets, bool is_holding, IProgress<int> progress)
         {
             List<Frame> Results = new();
 
@@ -28,7 +28,7 @@ namespace SWSH_OWRNG_Generator.Core.MenuCloseTimeline
                 if (progress != null && (advance % ProgressUpdateInterval == 0))
                     progress.Report(1);
 
-                uint num = MenuClose.Generator.GetAdvances(go, NPCCount);
+                uint num = MenuClose.Generator.GetAdvances(go, NPCCount, use_weather_fidgets, is_holding);
                 Jump = $"+{num}";
 
                 (ulong _s0, ulong _s1) = go.GetState();
@@ -42,7 +42,7 @@ namespace SWSH_OWRNG_Generator.Core.MenuCloseTimeline
                     }
                 );
 
-                MenuClose.Generator.Advance(ref go, NPCCount);
+                MenuClose.Generator.Advance(ref go, NPCCount, use_weather_fidgets, is_holding);
                 advance += num;
             }
 

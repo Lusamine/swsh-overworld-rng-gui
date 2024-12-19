@@ -34,8 +34,8 @@ namespace SWSH_OWRNG_Generator.Core.WattTrader
 
                 if (Filters.MenuClose)
                 {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCCount)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCCount);
+                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCCount, false, false)}";
+                    rng = MenuClose.Generator.Advance(ref rng, NPCCount, false, false);
                 }
 
                 uint Highlight = (uint)rng.NextInt(1000);

@@ -24,12 +24,12 @@ namespace SWSH_OWRNG_Generator.WinForms
             InputDisplayID.Text = DisplayID;
             LoadIDs();
 
-            InputState0.KeyPress += new KeyPressEventHandler(MainWindow.HexInput_KeyPress);
-            InputState1.KeyPress += new KeyPressEventHandler(MainWindow.HexInput_KeyPress);
-            InputInitialAdv.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputMaxAdv.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputDisplayID.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputNPCs.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
+            InputState0.KeyPress += MainWindow.HexInput_KeyPress;
+            InputState1.KeyPress += MainWindow.HexInput_KeyPress;
+            InputInitialAdv.KeyPress += MainWindow.DecInput_KeyPress;
+            InputMaxAdv.KeyPress += MainWindow.DecInput_KeyPress;
+            InputDisplayID.KeyPress += MainWindow.DecInput_KeyPress;
+            InputNPCs.KeyPress += MainWindow.DecInput_KeyPress;
         }
 
         private void UpdateIDsFromFile()

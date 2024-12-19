@@ -33,8 +33,8 @@ namespace SWSH_OWRNG_Generator.Core.Loto_ID
                 Xoroshiro128Plus rng = new(s0, s1);
                 if (Filters.MenuClose)
                 {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCCount)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCCount);
+                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCCount, false, false)}";
+                    rng = MenuClose.Generator.Advance(ref rng, NPCCount, false, false);
                 }
                 uint _1 = (uint)rng.NextInt(10);
                 uint _2 = (uint)rng.NextInt(10);

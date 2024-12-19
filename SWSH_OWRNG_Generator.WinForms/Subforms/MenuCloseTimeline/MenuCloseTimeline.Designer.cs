@@ -32,7 +32,7 @@
             this.LabelNPCs = new System.Windows.Forms.Label();
             this.InputNPCs = new System.Windows.Forms.TextBox();
             this.CheckHoldingDirection = new System.Windows.Forms.CheckBox();
-            this.CheckInCave = new System.Windows.Forms.CheckBox();
+            this.CheckClearCloudyFog = new System.Windows.Forms.CheckBox();
             this.TimelineProgressBar = new System.Windows.Forms.ProgressBar();
             this.TimelineSearch = new System.Windows.Forms.Button();
             this.LabelInitialAdv = new System.Windows.Forms.Label();
@@ -68,23 +68,22 @@
             // CheckHoldingDirection
             // 
             this.CheckHoldingDirection.AutoSize = true;
-            this.CheckHoldingDirection.Location = new System.Drawing.Point(16, 215);
+            this.CheckHoldingDirection.Location = new System.Drawing.Point(16, 240);
             this.CheckHoldingDirection.Name = "CheckHoldingDirection";
             this.CheckHoldingDirection.Size = new System.Drawing.Size(124, 19);
             this.CheckHoldingDirection.TabIndex = 188;
-            this.CheckHoldingDirection.Text = "Holding direction?";
+            this.CheckHoldingDirection.Text = "Holding Direction";
             this.CheckHoldingDirection.UseVisualStyleBackColor = true;
             // 
-            // CheckInCave
+            // CheckClearCloudyFog
             // 
-            this.CheckInCave.AutoSize = true;
-            this.CheckInCave.Enabled = false;
-            this.CheckInCave.Location = new System.Drawing.Point(16, 240);
-            this.CheckInCave.Name = "CheckInCave";
-            this.CheckInCave.Size = new System.Drawing.Size(77, 19);
-            this.CheckInCave.TabIndex = 187;
-            this.CheckInCave.Text = "In a cave?";
-            this.CheckInCave.UseVisualStyleBackColor = true;
+            this.CheckClearCloudyFog.AutoSize = true;
+            this.CheckClearCloudyFog.Location = new System.Drawing.Point(16, 215);
+            this.CheckClearCloudyFog.Name = "CheckClearCloudyFog";
+            this.CheckClearCloudyFog.Size = new System.Drawing.Size(77, 19);
+            this.CheckClearCloudyFog.TabIndex = 187;
+            this.CheckClearCloudyFog.Text = "Clear/Cloudy/Fog";
+            this.CheckClearCloudyFog.UseVisualStyleBackColor = true;
             // 
             // TimelineProgressBar
             // 
@@ -201,7 +200,7 @@
             this.Controls.Add(this.LabelNPCs);
             this.Controls.Add(this.InputNPCs);
             this.Controls.Add(this.CheckHoldingDirection);
-            this.Controls.Add(this.CheckInCave);
+            this.Controls.Add(this.CheckClearCloudyFog);
             this.Controls.Add(this.TimelineProgressBar);
             this.Controls.Add(this.TimelineSearch);
             this.Controls.Add(this.LabelInitialAdv);
@@ -227,7 +226,7 @@
         private System.Windows.Forms.Label LabelNPCs;
         private System.Windows.Forms.TextBox InputNPCs;
         private System.Windows.Forms.CheckBox CheckHoldingDirection;
-        private System.Windows.Forms.CheckBox CheckInCave;
+        private System.Windows.Forms.CheckBox CheckClearCloudyFog;
         private System.Windows.Forms.ProgressBar TimelineProgressBar;
         private System.Windows.Forms.Button TimelineSearch;
         private System.Windows.Forms.Label LabelInitialAdv;

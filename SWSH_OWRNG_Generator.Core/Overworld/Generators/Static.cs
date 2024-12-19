@@ -43,8 +43,8 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 Xoroshiro128Plus rng = new(s0, s1);
                 if (Filters.MenuClose)
                 {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters);
+                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection)}";
+                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection);
                 }
                 Gender = "";
                 uint LeadRand = (uint)rng.NextInt(100);

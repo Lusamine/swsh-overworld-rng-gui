@@ -18,13 +18,13 @@ namespace SWSH_OWRNG_Generator.WinForms.Subforms.WattTrader
             MainWindow = f;
             SelectedItem.SelectedIndex = 1;
 
-            InputState0.KeyPress += new KeyPressEventHandler(MainWindow.HexInput_KeyPress);
-            InputState1.KeyPress += new KeyPressEventHandler(MainWindow.HexInput_KeyPress);
-            InputInitialAdv.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputMaxAdv.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputSlotMax.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputSlotMin.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputNPCs.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
+            InputState0.KeyPress += MainWindow.HexInput_KeyPress;
+            InputState1.KeyPress += MainWindow.HexInput_KeyPress;
+            InputInitialAdv.KeyPress += MainWindow.DecInput_KeyPress;
+            InputMaxAdv.KeyPress += MainWindow.DecInput_KeyPress;
+            InputSlotMax.KeyPress += MainWindow.DecInput_KeyPress;
+            InputSlotMin.KeyPress += MainWindow.DecInput_KeyPress;
+            InputNPCs.KeyPress += MainWindow.DecInput_KeyPress;
         }
 
         private async void WattSearchSearch_Click(object sender, EventArgs e)

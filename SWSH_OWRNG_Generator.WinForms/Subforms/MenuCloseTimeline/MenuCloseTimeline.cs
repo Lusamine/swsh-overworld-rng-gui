@@ -16,11 +16,11 @@ namespace SWSH_OWRNG_Generator.WinForms
             InputState1.Text = f.InputState1.Text;
             MainWindow = f;
 
-            InputState0.KeyPress += new KeyPressEventHandler(MainWindow.HexInput_KeyPress);
-            InputState1.KeyPress += new KeyPressEventHandler(MainWindow.HexInput_KeyPress);
-            InputInitialAdv.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputMaxAdv.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
-            InputNPCs.KeyPress += new KeyPressEventHandler(MainWindow.DecInput_KeyPress);
+            InputState0.KeyPress += MainWindow.HexInput_KeyPress;
+            InputState1.KeyPress += MainWindow.HexInput_KeyPress;
+            InputInitialAdv.KeyPress += MainWindow.DecInput_KeyPress;
+            InputMaxAdv.KeyPress += MainWindow.DecInput_KeyPress;
+            InputNPCs.KeyPress += MainWindow.DecInput_KeyPress;
         }
 
         private async void TimelineSearch_Click(object sender, System.EventArgs e)
@@ -31,6 +31,8 @@ namespace SWSH_OWRNG_Generator.WinForms
             ulong s1 = ulong.Parse(InputState1.Text, NumberStyles.AllowHexSpecifier);
             MainWindow.Pad(InputNPCs, '0', 1);
             uint NPCs = uint.Parse(InputNPCs.Text);
+            var use_weather_fidgets = CheckClearCloudyFog.Checked;
+            var is_holding = CheckHoldingDirection.Checked;
 
             MainWindow.Pad(InputMaxAdv, '0', 1);
             ulong advances = ulong.Parse(InputMaxAdv.Text);
@@ -51,7 +53,7 @@ namespace SWSH_OWRNG_Generator.WinForms
 
             var progress = new Progress<int>(_ => TimelineProgressBar.PerformStep());
 
-            List<Core.MenuCloseTimeline.Frame> Frames = await Task.Run(() => Core.MenuCloseTimeline.Generator.Generate(s0, s1, advances, InitialAdvances, NPCs, progress));
+            List<Core.MenuCloseTimeline.Frame> Frames = await Task.Run(() => Core.MenuCloseTimeline.Generator.Generate(s0, s1, advances, InitialAdvances, NPCs, use_weather_fidgets, is_holding, progress));
 
             BindingSource Source = new() { DataSource = Frames };
             TimelineResults.DataSource = Source;
