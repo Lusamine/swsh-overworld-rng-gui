@@ -61,6 +61,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 rng.NextInt(361); // placement roll -- assuming it works on the first try.
                 rng.Next(); // actually a float but we don't care about the value.
 
+
                 uint LeadRand = (uint)rng.NextInt(100);
                 SlotRand = "";
                 if (Filters.CuteCharm && LeadRand >= 49)
@@ -70,6 +71,18 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                     {
                         var type_slot = (int)rng.NextInt(type_pull_slots) + 1;
                         SlotRand += type_slot;
+                    }
+                }
+
+                if (SlotRand.Length == 0)
+                {
+                    // Attempt Dex Rec; we don't handle if it's active yet :(
+                    var dexrec_rand = rng.NextInt(100);
+                    if (dexrec_rand < 50)
+                    {
+                        // Will only do this if you have any dex recs.
+                        //var dexrec_slot = (int)rng.NextInt(4);
+                        // todo stuff with with the slot.
                     }
                 }
 
