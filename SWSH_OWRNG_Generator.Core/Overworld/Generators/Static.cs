@@ -145,6 +145,9 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                         State1 = _s1.ToString("X16"),
                     }
                 );
+                // Cap to 2500 results
+                if (Results.Count >= 2500)
+                    return Results;
                 go.Next();
                 advance++;
             }

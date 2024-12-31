@@ -660,7 +660,6 @@ namespace SWSH_OWRNG_Generator.WinForms
                 var progress = new Progress<int>(_ => progressBar1.PerformStep());
 
                 List<Core.Overworld.Frame> Frames;
-                List<Core.Overworld.Frame> Frames2;
 
                 if (Filters.TIDSIDSearch)
                 {
@@ -684,11 +683,7 @@ namespace SWSH_OWRNG_Generator.WinForms
                     var type_pull_slots = uint.Parse(TypePullSlotsInput.Text);
                     Frames = await Task.Run(() => Symbol.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs, type_pull_slots), CancellationToken.None);
                 }
-                if (Frames.Count > 2500)
-                    Frames2 = Frames.GetRange(0, 2500);
-                else
-                    Frames2 = Frames;
-                ButtonSearch.Text = $"Preparing {Frames2.Count:N0} results...";
+                ButtonSearch.Text = $"Preparing {Frames.Count:N0} results...";
                 ButtonSearch.Enabled = false;
                 BindingSource Source = new() { DataSource = Frames };
                 Results.DataSource = Source;
