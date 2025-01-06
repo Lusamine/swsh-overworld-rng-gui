@@ -1510,7 +1510,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             RainTicksInput.Name = "RainTicksInput";
             RainTicksInput.Size = new System.Drawing.Size(30, 23);
             RainTicksInput.TabIndex = 131;
-            RainTicksInput.Text = "1";
+            RainTicksInput.Text = "0";
             RainTicksInput.TextAlign = HorizontalAlignment.Right;
             RainTicksInput.KeyPress += DecInput_KeyPress;
             // 
@@ -1529,7 +1529,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             AreaLoadInput.Name = "AreaLoadInput";
             AreaLoadInput.Size = new System.Drawing.Size(30, 23);
             AreaLoadInput.TabIndex = 131;
-            AreaLoadInput.Text = "8";
+            AreaLoadInput.Text = "0";
             AreaLoadInput.TextAlign = HorizontalAlignment.Right;
             AreaLoadInput.KeyPress += DecInput_KeyPress;
             // 
@@ -1548,7 +1548,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             NPC0Input.Name = "NPC0Input";
             NPC0Input.Size = new System.Drawing.Size(30, 23);
             NPC0Input.TabIndex = 131;
-            NPC0Input.Text = "8";
+            NPC0Input.Text = "0";
             NPC0Input.TextAlign = HorizontalAlignment.Right;
             NPC0Input.KeyPress += DecInput_KeyPress;
             // 
