@@ -73,6 +73,8 @@ namespace SWSH_OWRNG_Generator.WinForms
             ButtonSearch = new Button();
             SelectedShiny = new ComboBox();
             LabelShiny = new Label();
+            SelectedRain = new ComboBox();
+            LabelRain = new Label();
             Results = new DataGridView();
             Frame = new DataGridViewTextBoxColumn();
             TID = new DataGridViewTextBoxColumn();
@@ -153,6 +155,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             LabelKOCount = new Label();
             LabelRainTicks = new Label();
             LabelAreaLoad = new Label();
+            LabelNPC0 = new Label();
             InputKOCount = new TextBox();
             LabelEMs = new Label();
             InputEMs = new TextBox();
@@ -165,6 +168,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             TypePullSlotsInput = new TextBox();
             RainTicksInput = new TextBox();
             AreaLoadInput = new TextBox();
+            NPC0Input = new TextBox();
             hpJudgeFilter = new ComboBox();
             atkJudgeFilter = new ComboBox();
             defJudgeFilter = new ComboBox();
@@ -1538,6 +1542,44 @@ namespace SWSH_OWRNG_Generator.WinForms
             LabelAreaLoad.TabIndex = 91;
             LabelAreaLoad.Text = "Area Load Rands:";
             // 
+            // NPC0Input
+            // 
+            NPC0Input.Location = new System.Drawing.Point(930, 85);
+            NPC0Input.Name = "NPC0Input";
+            NPC0Input.Size = new System.Drawing.Size(30, 23);
+            NPC0Input.TabIndex = 131;
+            NPC0Input.Text = "8";
+            NPC0Input.TextAlign = HorizontalAlignment.Right;
+            NPC0Input.KeyPress += DecInput_KeyPress;
+            // 
+            // LabelNPC0
+            // 
+            LabelNPC0.AutoSize = true;
+            LabelNPC0.Location = new System.Drawing.Point(827, 87);
+            LabelNPC0.Name = "LabelNPC0";
+            LabelNPC0.Size = new System.Drawing.Size(61, 15);
+            LabelNPC0.TabIndex = 91;
+            LabelNPC0.Text = "NPC0 Rands:";
+            // 
+            // SelectedRain
+            // 
+            SelectedRain.DropDownStyle = ComboBoxStyle.DropDownList;
+            SelectedRain.FormattingEnabled = true;
+            SelectedRain.Items.AddRange(new object[] { "None", "Raining", "Thunderstorm" });
+            SelectedRain.Location = new System.Drawing.Point(930, 113);
+            SelectedRain.Name = "SelectedRain";
+            SelectedRain.Size = new System.Drawing.Size(103, 23);
+            SelectedRain.TabIndex = 30;
+            // 
+            // LabelRain
+            // 
+            LabelRain.AutoSize = true;
+            LabelRain.Location = new System.Drawing.Point(827, 114);
+            LabelRain.Name = "LabelShiny";
+            LabelRain.Size = new System.Drawing.Size(39, 15);
+            LabelRain.TabIndex = 71;
+            LabelRain.Text = "Rain Type:";
+            // 
             // hpJudgeFilter
             // 
             hpJudgeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -2013,6 +2055,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             Controls.Add(TypePullSlotsInput);
             Controls.Add(RainTicksInput);
             Controls.Add(AreaLoadInput);
+            Controls.Add(NPC0Input);
             Controls.Add(sensBox);
             Controls.Add(CheckTIDSIDFinder);
             Controls.Add(LabelFlawlessIVs);
@@ -2022,6 +2065,7 @@ namespace SWSH_OWRNG_Generator.WinForms
             Controls.Add(LabelKOCount);
             Controls.Add(LabelRainTicks);
             Controls.Add(LabelAreaLoad);
+            Controls.Add(LabelNPC0);
             Controls.Add(InputKOCount);
             Controls.Add(ButtonUpdateStates);
             Controls.Add(CheckIsAbilityLocked);
@@ -2043,6 +2087,8 @@ namespace SWSH_OWRNG_Generator.WinForms
             Controls.Add(Results);
             Controls.Add(SelectedShiny);
             Controls.Add(LabelShiny);
+            Controls.Add(SelectedRain);
+            Controls.Add(LabelRain);
             Controls.Add(ButtonSearch);
             Controls.Add(LabelSlot);
             Controls.Add(LabelLevel);
@@ -2156,6 +2202,8 @@ namespace SWSH_OWRNG_Generator.WinForms
         private Button ButtonSearch;
         private ComboBox SelectedShiny;
         private Label LabelShiny;
+        private ComboBox SelectedRain;
+        private Label LabelRain;
         private DataGridView Results;
         private Label label12;
         private Button speMinFilter;
@@ -2204,6 +2252,7 @@ namespace SWSH_OWRNG_Generator.WinForms
         private Label LabelKOCount;
         private Label LabelRainTicks;
         private Label LabelAreaLoad;
+        private Label LabelNPC0;
         private TextBox InputKOCount;
         private CheckBox CheckTIDSIDFinder;
         private Label LabelEMs;
@@ -2215,6 +2264,7 @@ namespace SWSH_OWRNG_Generator.WinForms
         private TextBox TypePullSlotsInput;
         private TextBox RainTicksInput;
         private TextBox AreaLoadInput;
+        private TextBox NPC0Input;
         private ComboBox hpJudgeFilter;
         private ComboBox atkJudgeFilter;
         private ComboBox defJudgeFilter;

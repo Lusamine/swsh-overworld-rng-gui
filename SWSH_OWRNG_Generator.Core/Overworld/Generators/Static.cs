@@ -4,7 +4,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 {
     public static class Static
     {
-        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs, uint loading_rands)
+        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs, uint loading_rands, uint npc0, uint rain_ticks, RainType rain_type)
         {
             List<Frame> Results = new();
 
@@ -44,10 +44,60 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 
                 Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection)}";
 
+                if (rain_type != RainType.None)
+                {
+                    for (var i = 0; i < 6; i++)
+                    {
+                        rng.NextInt(20001);
+                        rng.NextInt(20001);
+                    }
+                    // Do 6 additional in Thunderstorm.
+                    if (rain_type == RainType.Thunderstorm)
+                    {
+                        for (var i = 0; i < 6; i++)
+                        {
+                            rng.NextInt(20001);
+                            rng.NextInt(20001);
+                        }
+                    }
+                }
+
                 rng.NextInt(100); // map memory
+
+                if (rain_type != RainType.None)
+                {
+                    for (var i = 0; i < 3; i++)
+                    {
+                        rng.NextInt(20001);
+                        rng.NextInt(20001);
+                    }
+                    // Do 3 additional in Thunderstorm.
+                    if (rain_type == RainType.Thunderstorm)
+                    {
+                        for (var i = 0; i < 3; i++)
+                        {
+                            rng.NextInt(20001);
+                            rng.NextInt(20001);
+                        }
+                    }
+                }
 
                 for (var i = 0; i < loading_rands; i++)
                     rng.NextInt(100);
+
+                // First batch of NPC rand calls.
+                for (var i = 0; i < npc0; i++)
+                    rng.NextInt(91);
+
+                // Second batch of rain ticks. This is the same regardless of rain type.
+                if (rain_type != RainType.None)
+                {
+                    for (var i = 0; i < rain_ticks; i++)
+                    {
+                        rng.NextInt(20001);
+                        rng.NextInt(20001);
+                    }
+                }
 
                 rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection);
 
@@ -156,6 +206,13 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 advance++;
             }
             return Results;
+        }
+
+        public enum RainType
+        {
+            None,
+            Raining,
+            Thunderstorm,
         }
     }
 }

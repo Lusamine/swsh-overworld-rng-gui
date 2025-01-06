@@ -43,7 +43,7 @@ public sealed class GeneratorTests
             DesiredAura = Ignore,
             DesiredNature = Ignore
         };
-        List<Frame> Frames = Static.Generate(s0, s1, 1000, 0, Progress, Filters, 0, 8);
+        List<Frame> Frames = Static.Generate(s0, s1, 1000, 0, Progress, Filters, 0, 8, 0, 0, 0);
         Frames.Should().NotBeNull();
         Frames.Where(f => f.Shiny != "No").Count().Should().Be(0);
         Frames.Where(f => f.Mark == "Rare").Count().Should().Be(1);
