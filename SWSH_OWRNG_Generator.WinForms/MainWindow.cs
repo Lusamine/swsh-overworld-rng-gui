@@ -675,7 +675,10 @@ namespace SWSH_OWRNG_Generator.WinForms
                 }
                 else if (Filters.Hidden)
                 {
-                    Frames = await Task.Run(() => Hidden.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs), CancellationToken.None);
+                    var type_pull_slots = uint.Parse(TypePullSlotsInput.Text);
+                    var rain_ticks = uint.Parse(RainTicksInput.Text);
+                    var rain_type = (Static.RainType)SelectedRain.SelectedIndex;
+                    Frames = await Task.Run(() => Hidden.Generate(s0, s1, advances, InitialAdvances, progress, Filters, NPCs, rain_ticks, rain_type, type_pull_slots), CancellationToken.None);
                 }
                 else if (Filters.Fishing)
                 {

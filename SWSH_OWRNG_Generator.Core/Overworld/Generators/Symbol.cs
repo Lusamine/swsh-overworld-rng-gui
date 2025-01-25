@@ -61,7 +61,6 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                 rng.NextInt(361); // placement roll -- assuming it works on the first try.
                 rng.Next(); // actually a float but we don't care about the value.
 
-
                 uint LeadRand = (uint)rng.NextInt(100);
                 SlotRand = "";
                 if (Filters.CuteCharm && LeadRand >= 49)
