@@ -1,10 +1,11 @@
 ﻿using PKHeX.Core;
+using static SWSH_OWRNG_Generator.Core.Overworld.Generators.Static;
 
 namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 {
     public static class Hidden
     {
-        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs)
+        public static List<Frame> Generate(ulong state0, ulong state1, ulong advances, ulong InitialAdvances, IProgress<int> progress, Filter Filters, uint NPCs, uint type_pull_slots = 1)
         {
             List<Frame> Results = new();
 
@@ -13,7 +14,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
             uint LevelDelta = Filters.LevelMax - Filters.LevelMin + 1;
             uint EC;
             uint PID;
-            uint SlotRand;
+            string SlotRand;
             uint Level;
             uint Nature;
             uint AbilityRoll;
@@ -26,8 +27,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
             ulong advance = 0;
             string Jump = string.Empty;
 
-            byte steps = 0;
-            byte[] enc = { 22, 44, 66, 88 };
+            byte[] enc = { 44, 88, 100, 100 };
 
             ulong ProgressUpdateInterval = advances / 100;
             if (ProgressUpdateInterval == 0)
@@ -42,39 +42,52 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 
             while (advance < advances)
             {
+                byte steps = 0;
                 if (progress != null && advance % ProgressUpdateInterval == 0)
                     progress.Report(1);
 
                 // Init new RNG
                 (ulong s0, ulong s1) = go.GetState();
                 Xoroshiro128Plus rng = new(s0, s1);
-                if (Filters.MenuClose)
-                {
-                    Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection)}";
-                    rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection);
-                }
-                Gender = "";
 
-                rng.NextInt();
-                rng.NextInt(100);
+                Jump = $"+{MenuClose.Generator.GetAdvances(rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection)}";
+
+                rng = MenuClose.Generator.Advance(ref rng, NPCs, Filters.UseWeatherFidgets, Filters.HoldingDirection);
 
                 uint LeadRand = 0;
-                //for (steps = 0; steps < enc.Length; steps++)
-                //{
-                //uint EncRand = (uint)rng.NextInt(100);
-                LeadRand = (uint)rng.NextInt(100);
-                //if (EncRand < enc[steps]) break;
-                //}
-
-                if (Filters.CuteCharm && LeadRand < 66)
-                    Gender = "CC";
-
-                SlotRand = (uint)rng.NextInt(100);
-                if (Filters.SlotMin > SlotRand || Filters.SlotMax < SlotRand)
+                for (var step_count = 0; step_count < 5; step_count++)
                 {
-                    go.Next();
-                    advance++;
-                    continue;
+                    steps = (byte)(step_count + 1);
+                    LeadRand = (uint)rng.NextInt(100);
+
+                    var step_rand = (uint)rng.NextInt(100);
+                    if (step_rand < enc[step_count])
+                        break;
+                }
+
+                SlotRand = "";
+                if (Filters.CuteCharm && LeadRand >= 49)
+                {
+                    SlotRand = "T";
+                    if (type_pull_slots > 1)
+                    {
+                        var type_slot = (int)rng.NextInt(type_pull_slots) + 1;
+                        SlotRand += type_slot;
+                    }
+                }
+
+                // DexRec would normally go here.
+
+                if (SlotRand.Length == 0)
+                {
+                    var slotrandval = (uint)rng.NextInt(100);
+                    SlotRand = slotrandval.ToString();
+                    if (Filters.SlotMin > slotrandval || Filters.SlotMax < slotrandval)
+                    {
+                        go.Next();
+                        advance++;
+                        continue;
+                    }
                 }
 
                 if (GenerateLevel)
@@ -101,6 +114,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                     }
                 }
 
+                Gender = "";
                 // Gender
                 if (Gender != "CC")
                     Gender = rng.NextInt(2) == 0 ? "F" : "M";
@@ -166,9 +180,9 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
                         Advances = (advance + InitialAdvances).ToString("N0"),
                         Animation = _s0 & 1 ^ _s1 & 1,
                         Jump = Jump,
-                        Steps = (steps + 1).ToString(),
+                        Steps = steps.ToString(),
                         Level = Level,
-                        Slot = SlotRand.ToString(),
+                        Slot = SlotRand,
                         PID = PID.ToString("X8"),
                         EC = EC.ToString("X8"),
                         Shiny = ShinyXOR == 0 ? "Square" : ShinyXOR < 16 ? $"Star ({ShinyXOR})" : "No",
