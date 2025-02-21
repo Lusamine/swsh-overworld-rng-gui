@@ -123,7 +123,7 @@ namespace SWSH_OWRNG_Generator.Core.Overworld.Generators
 
                 FixedSeed = (uint)rng.Next();
                 (EC, PID, IVs, ShinyXOR, PassIVs, Height) = Util.Common.CalculateFixed(FixedSeed, Filters.TSV, Shiny, (int)Filters.FlawlessIVs, Filters.MinIVs!, Filters.MaxIVs!);
-                if (Filters.Is3Segment && PID % 100 != 0)
+                if (Filters.Is3Segment && EC % 100 != 0)
                 {
                     go.Next();
                     advance++;
